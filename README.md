@@ -3,7 +3,7 @@ Your project's description...
 
 ## Environments
 - Preview: https://main--eds-training--andreibogdan.hlx.page/
-- Live: https:///main--eds-training--andreibogdan.hlx.live/
+- Live: https://main--eds-training--andreibogdan.hlx.live/
 
 ## Installation
 
