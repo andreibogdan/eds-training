@@ -1,20 +1,51 @@
-import { getMetadata } from '../../scripts/aem.js';
-import { loadFragment } from '../fragment/fragment.js';
+import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
+
+/**
+ * @param {Element} block
+ */
+function decorateCopyRight(block) {
+  const copyBlock = block.querySelector('.copy');
+  if (!copyBlock) {
+    return;
+  }
+  const [startYear, copyText] = [...copyBlock.querySelectorAll(':scope > div > div')];
+  startYear.textContent = `© ${startYear.textContent}-${new Date().getFullYear()}, ${
+    copyText.textContent
+  }`;
+  copyText.remove();
+}
 
 /**
  * loads and decorates the footer
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
-  // load footer as fragment
-  const footerMeta = getMetadata('footer');
-  const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/footer';
-  const fragment = await loadFragment(footerPath);
-
-  // decorate footer DOM
+  const cfg = readBlockConfig(block);
   block.textContent = '';
-  const footer = document.createElement('div');
-  while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
 
-  block.append(footer);
+  // fetch footer content
+  const footerPath = cfg.footer || '/footer';
+  const resp = await fetch(
+    `${footerPath}.plain.html`,
+    window.location.pathname.endsWith('/footer') ? { cache: 'reload' } : {},
+  );
+
+  if (resp.ok) {
+    const html = await resp.text();
+
+    // decorate footer DOM
+    const footer = document.createElement('div');
+    footer.innerHTML = html;
+
+    decorateIcons(footer);
+    decorateCopyRight(footer);
+    block.append(footer);
+  }
+
+  const pic = block.querySelector('picture');
+  const container = pic?.closest('a');
+
+  if (container) {
+    container.ariaLabel = 'Link to homepage';
+  }
 }
