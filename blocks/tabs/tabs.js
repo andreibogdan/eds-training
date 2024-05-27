@@ -1,4 +1,4 @@
-import { decorateBlock, loadBlocks, updateSectionsStatus } from '../../scripts/lib-franklin.js';
+import { decorateBlock, loadBlocks, updateSectionsStatus } from '../../scripts/aem.js';
 import stringToHTML from '../../scripts/template.js';
 
 /**

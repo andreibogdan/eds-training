@@ -1,4 +1,4 @@
-import { isElementInViewport } from '../../scripts/lib-franklin.js';
+import { isElementInViewport } from '../../scripts/aem.js';
 
 /**
  * handler for featured-article

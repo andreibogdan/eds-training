@@ -209,6 +209,26 @@ function toCamelCase(name) {
 }
 
 /**
+ * Checks if an element is in viewport
+ * @param {Element} [element] the element to check
+ */
+export function isElementInViewport(element) {
+  if (!element) return false;
+  if (Node.ELEMENT_NODE !== element.nodeType) return false;
+
+  const html = document.documentElement;
+  const rect = element.getBoundingClientRect();
+
+  return (
+    !!rect &&
+    rect.bottom >= 0 &&
+    rect.right >= 0 &&
+    rect.left <= html.clientWidth &&
+    rect.top <= html.clientHeight
+  );
+}
+
+/**
  * Extracts the config from a block.
  * @param {Element} block The block element
  * @returns {object} The block config

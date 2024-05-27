@@ -1,4 +1,4 @@
-import { loadBlock, decorateBlock } from '../../scripts/lib-franklin.js';
+import { loadBlock, decorateBlock } from '../../scripts/aem.js';
 
 /**
  * @param {HTMLDivElement} block

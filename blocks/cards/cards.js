@@ -1,4 +1,4 @@
-import { createResponsivePicture } from '../../scripts/lib-franklin.js';
+import { createResponsivePicture } from '../../scripts/aem.js';
 
 export default function decorate(block) {
   /* change to ul, li */
