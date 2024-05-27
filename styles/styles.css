@@ -290,23 +290,6 @@ main .section {
   }
 }
 
-/* progressive section appearance */
-:where(main picture) {
-  visibility: hidden;
-}
-
-main picture[data-status='ready'] {
-  visibility: initial;
-}
-
-:where(main > div:not(.section)) {
-  display: none;
-}
-
-main .section[data-section-status='loading'],
-main .section[data-section-status='initialized'] {
-  display: none;
-}
 
 /* section metadata */
 main .section.highlight {
