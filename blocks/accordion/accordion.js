@@ -7,12 +7,10 @@ import stringToHTML from '../../scripts/template.js';
 function initEvents(block) {
   const buttons = [...block.querySelectorAll('button.accordion-btn')];
 
-  buttons.forEach((button) =>
-    button.addEventListener('click', () => {
-      const row = button.closest('div.accordion-row');
-      row.classList.toggle('accordion-row-isopen');
-    }),
-  );
+  buttons.forEach((button) => button.addEventListener('click', () => {
+    const row = button.closest('div.accordion-row');
+    row.classList.toggle('accordion-row-isopen');
+  }));
 }
 
 /**

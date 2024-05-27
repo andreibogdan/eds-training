@@ -61,9 +61,7 @@ export default async function decorate(block) {
   const container = block.querySelector(':scope > div > div');
   const linkToRelatedArticles = container.querySelector('a');
   const articles = await fetchRelatedArticles(linkToRelatedArticles.href);
-  const articleLinks = articles.map((article) =>
-    stringToHTML(`<a href="${article.url}" title="${article.title}">${article.title}</a>`),
-  );
+  const articleLinks = articles.map((article) => stringToHTML(`<a href="${article.url}" title="${article.title}">${article.title}</a>`));
 
   // const articleLinks = [...block.querySelectorAll("a")];
   const articlesMetadata = await getArticlesMetadata(articleLinks);
@@ -74,20 +72,19 @@ export default async function decorate(block) {
   const markup = stringToHTML(
     `<div class="related-articles-list">
         ${articlesMetadata
-          .map(
-            (article) =>
-              `<a class="related-articles-article" href="${article.href}">
+    .map(
+      (article) => `<a class="related-articles-article" href="${article.href}">
                 <div class="related-articles-articleTitle">${article.title}</div>
                 ${
-                  article.lastModified === null
-                    ? ``
-                    : `<div class="related-articles-articleModified">
+  article.lastModified === null
+    ? ''
+    : `<div class="related-articles-articleModified">
                       ${intl.format(article.lastModified)}
                     </div>`
-                }
+}
             </a>`,
-          )
-          .join('')}
+    )
+    .join('')}
     </div>`,
   );
 

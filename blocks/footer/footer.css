@@ -52,7 +52,7 @@ footer .footer-links a {
   gap: 0.5rem;
 }
 
-@media (min-width: 600px) {
+@media (width >= 600px) {
   .footer-links > div > div:nth-of-type(2) {
     flex-flow: row nowrap;
     gap: 1rem;
@@ -95,7 +95,7 @@ footer .footer-links a {
   font-size: var(--body-font-size-xxs);
 }
 
-@media (min-width: 900px) {
+@media (width >= 900px) {
   .footer-links > div > div:nth-of-type(3) {
     justify-content: end;
   }

@@ -43,7 +43,7 @@ header.stuck .header {
   box-shadow: 0 8px 20px 0 rgb(0 0 0 / 26%);
 }
 
-@media (min-width: 900px) {
+@media (width >= 900px) {
   header.stuck .header {
     --max-height: 64px;
   }
@@ -74,7 +74,7 @@ header nav[aria-expanded='true'] {
   min-height: 100vh;
 }
 
-@media (min-width: 900px) {
+@media (width >= 900px) {
   header nav {
     display: flex;
     justify-content: space-between;
@@ -169,7 +169,7 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
   transform: rotate(-45deg);
 }
 
-@media (min-width: 900px) {
+@media (width >= 900px) {
   header nav .nav-hamburger {
     display: none;
     visibility: hidden;
@@ -190,7 +190,7 @@ header nav .nav-brand img {
   height: auto;
 }
 
-@media (min-width: 900px) {
+@media (width >= 900px) {
   header nav .nav-brand img {
     width: 128px;
     height: auto;
@@ -252,7 +252,7 @@ header nav .nav-sections ul a:active {
   background-color: var(--brand-color);
 }
 
-@media (min-width: 900px) {
+@media (width >= 900px) {
   header nav .nav-sections {
     display: block;
     visibility: visible;

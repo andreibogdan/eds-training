@@ -127,7 +127,7 @@
   font-size: 2rem;
 }
 
-@media (min-width: 600px) {
+@media (width >= 600px) {
   .carousel-item .carousel-content {
     position: absolute;
     bottom: 0;

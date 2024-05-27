@@ -4,10 +4,10 @@
  * @returns Element | HTMLCollection
  */
 export default function stringToHTML(htmlString) {
-    const div = document.createElement('div');
-    div.innerHTML = htmlString;
-    if (div.childElementCount > 1) {
-        return div.children;
-    }
-    return div.children[0];
+  const div = document.createElement('div');
+  div.innerHTML = htmlString;
+  if (div.childElementCount > 1) {
+    return div.children;
+  }
+  return div.children[0];
 }

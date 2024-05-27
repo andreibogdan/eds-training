@@ -33,7 +33,7 @@
   padding: 0 16px;
 }
 
-@media (min-width: 600px) {
+@media (width >= 600px) {
   .fullbleed-section .breadcrumbs-wrapper {
     padding: 0 32px;
   }

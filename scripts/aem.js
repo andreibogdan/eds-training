@@ -220,11 +220,11 @@ export function isElementInViewport(element) {
   const rect = element.getBoundingClientRect();
 
   return (
-    !!rect &&
-    rect.bottom >= 0 &&
-    rect.right >= 0 &&
-    rect.left <= html.clientWidth &&
-    rect.top <= html.clientHeight
+    !!rect
+    && rect.bottom >= 0
+    && rect.right >= 0
+    && rect.left <= html.clientWidth
+    && rect.top <= html.clientHeight
   );
 }
 
@@ -328,6 +328,77 @@ function getMetadata(name, doc = document) {
     .map((m) => m.content)
     .join(', ');
   return meta || '';
+}
+
+/**
+ * Returns a picture element with webp and fallbacks
+ * @param {string} src The image URL
+ * @param {string} [alt] The image alternative text
+ * @param {boolean} [eager] Set loading attribute to eager
+ * @param {number} [width] Natural images' width
+ * @param {number} [height] Natural images' height
+ * @param {Array} [srcset] List of sources
+ * @param {Array} [sizes] Breakpoints and corresponding params (eg. width)
+ * @returns {Element} The picture element
+ */
+export function createResponsivePicture({
+  src,
+  alt = '',
+  eager = false,
+  width,
+  height,
+  sizes = [{ media: '(min-width: 100px)', width: '100vw' }],
+  srcset = ['300', '600', '900', '1200', '1800', '2000', '2400', '3000'],
+}) {
+  const url = new URL(src, window.location.href);
+  const picture = document.createElement('picture');
+  const { pathname } = url;
+  const ext = pathname.substring(pathname.lastIndexOf('.') + 1);
+
+  const img = document.createElement('img');
+  img.loading = eager ? 'eager' : 'lazy';
+  img.alt = alt;
+  img.src = `${pathname}?format=${ext}&optimize=high`;
+  if (width) img.width = width;
+  if (height) img.height = height;
+
+  if (Array.isArray(sizes)) {
+    img.sizes = sizes.reduce((acc, size) => {
+      const imgSize = size.media ? `${size.media} ${size.width}` : size.width.toString();
+      return acc ? `${acc}, ${imgSize}` : imgSize;
+    }, '');
+  }
+
+  const webpSource = document.createElement('source');
+  const fallbackSource = document.createElement('source');
+  webpSource.type = 'image/webp';
+  if (Array.isArray(srcset)) {
+    webpSource.srcset = srcset.reduce((acc, crt) => {
+      const currentSource = `${pathname}?width=${crt}&format=webp&optimize=high ${crt}w`;
+      if (acc === '') {
+        return currentSource;
+      }
+      return `${acc}, ${currentSource}`;
+    }, '');
+
+    fallbackSource.srcset = srcset.reduce((acc, crt) => {
+      const currentSource = `${pathname}?width=${crt}&format=${ext}&optimize=high ${crt}w`;
+      if (acc === '') {
+        return currentSource;
+      }
+      return `${acc}, ${currentSource}`;
+    }, '');
+  }
+
+  webpSource.dataset.src = `${pathname}?format=webp&optimize=high`;
+  fallbackSource.dataset.src = img.src;
+  fallbackSource.type = `image/${ext}`;
+
+  picture.appendChild(webpSource);
+  picture.appendChild(fallbackSource);
+  picture.appendChild(img);
+
+  return picture;
 }
 
 /**

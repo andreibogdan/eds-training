@@ -67,7 +67,7 @@
   object-position: center;
 }
 
-@media (min-width: 800px) {
+@media (width >= 800px) {
   .featured-article > div {
     flex-flow: row nowrap;
   }
